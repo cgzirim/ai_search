@@ -9,6 +9,7 @@ function App() {
   const [links, setLinks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleSearch = async () => {
     setIsLoading(true);
@@ -43,6 +44,14 @@ function App() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const openModal = (image) => {
+    setSelectedImage(image);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
   };
 
   return (
@@ -91,6 +100,8 @@ function App() {
                     src={img}
                     alt={`Search result ${index + 1}`}
                     className="image-item"
+                    onClick={() => openModal(img)} // Add click handler
+                    style={{ cursor: 'pointer' }} // Visual feedback
                   />
                 ))}
               </div>
@@ -122,6 +133,18 @@ function App() {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {selectedImage && (
+        <div className="modal-overlay" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>
+              ×
+            </button>
+            <img src={selectedImage} alt="Enlarged view" className="modal-image" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
