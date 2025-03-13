@@ -85,7 +85,7 @@ function App() {
 
           {searchResults && (
             <div className="results-section">
-              <h2>Results</h2>
+              <h2>Result</h2>
               <p>{searchResults}</p>
             </div>
           )}
